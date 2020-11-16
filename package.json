@@ -1,0 +1,30 @@
+{
+  "name": "koa-temp2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/index.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.1",
+    "@koa/cors": "^3.1.0",
+    "babel-loader": "^8.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^7.0.2",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-combine-routers": "^4.0.2",
+    "koa-helmet": "^6.0.0",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "nodemon": "^2.0.6",
+    "webpack-cli": "^4.2.0",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.4.0"
+  }
+}
