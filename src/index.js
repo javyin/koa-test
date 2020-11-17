@@ -15,12 +15,13 @@ import koaBody from 'koa-body';
 import jsonutil from 'koa-json';
 import cors from '@koa/cors';
 import koaCompose from 'koa-compose'; // 整合koa的中间件
-
-
+import compress from 'koa-compress';  // 压缩中间件
 // const router = require('./routes');
 import router from './routes';
 
 const app = new koa();
+
+const isDevMode = process.env.NODE_ENV == "production" ?  false : true;
 
 const middleware = koaCompose([
     koaBody(),
@@ -30,6 +31,9 @@ const middleware = koaCompose([
     helmet()
 ])
 
+if(!isDevMode) {
+    app.use(compress())
+};
 
 // app.use(helmet());
 // app.use(statics(path.join(__dirname, '../public')));
