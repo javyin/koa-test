@@ -2,17 +2,22 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals'); // 用于排除一些我们使用不到的node模块
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
+const utils = require('./utils');
+const webpack = require('webpack');
+// debugger   
+// 用于断点调试 npx node --inspect-brk ./node_modules/.bin/webpack --inline --progress
+// 也可以把命令添加到package.json中，方便运行
+// 然后可以在chrome中 输入 chrome://inspect， 就可以调试
+
 const webpackconfig = {
     target: 'node',
-    mode: 'development',
     entry: {
-        server: path.join(__dirname, 'src/index.js')
+        server: path.join(utils.APP_PATH, 'index.js')
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.join(__dirname, './dist')
+        path: utils.DIST_PATH
     },
-    devtool: 'eval-source-map', // 用于后面调试
     module: {
         rules: [
             {
@@ -26,7 +31,13 @@ const webpackconfig = {
     },
     externals: [nodeExternals()],
     plugins:[
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        //  DefinePlugin 可以创建一个常量
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: (process.env.NODE_ENV == 'productino' || process.env.NODE_ENV == 'prod' ? "'productoin'" : "'development'")
+            }
+        })
     ],
     node: {
         // console: true,
@@ -39,5 +50,7 @@ const webpackconfig = {
         // path: true
     }
 }
+
+console.log(webpackconfig)
 
 module.exports =  webpackconfig;

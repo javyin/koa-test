@@ -11,14 +11,30 @@ import koa from 'koa';
 import path from 'path';
 import helmet from 'koa-helmet';
 import statics from 'koa-static';
+import koaBody from 'koa-body';
+import jsonutil from 'koa-json';
+import cors from '@koa/cors';
+import koaCompose from 'koa-compose'; // 整合koa的中间件
+
 
 // const router = require('./routes');
 import router from './routes';
 
 const app = new koa();
 
-app.use(helmet());
-app.use(statics(path.join(__dirname, '../public')));
+const middleware = koaCompose([
+    koaBody(),
+    statics(path.join(__dirname, '../public')),
+    cors(),
+    jsonutil({pretty: false, param: "pretty"}),
+    helmet()
+])
+
+
+// app.use(helmet());
+// app.use(statics(path.join(__dirname, '../public')));
+
+app.use(middleware);
 app.use(router());
 
 app.listen(4444);

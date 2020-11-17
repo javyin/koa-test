@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index.js"
+    "webpack:debug": "node --inspect-brk ./node_modules/.bin/webpack --inline --progress",
+    "build": "cross-env NODE_ENV=prod webpack --config config/webpack.config.prod.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node --inspect src/index.js",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@babel/core": "^7.12.3",
@@ -17,14 +20,20 @@
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-combine-routers": "^4.0.2",
+    "koa-compose": "^4.1.0",
+    "koa-compress": "^5.0.1",
     "koa-helmet": "^6.0.0",
+    "koa-json": "^2.0.2",
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
     "nodemon": "^2.0.6",
     "webpack-cli": "^4.2.0",
+    "webpack-merge": "^5.4.0",
     "webpack-node-externals": "^2.5.2"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
+    "terser-webpack-plugin": "^5.0.3",
     "webpack": "^5.4.0"
   }
 }
