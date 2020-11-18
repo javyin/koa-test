@@ -223,7 +223,25 @@ export default router
 
 把上面路由也整合到路由集合中(src/routes/index.js)
 
-在浏览器访问地址localhost:4444/getCaptcha就能看到成功返回的数据，不过是看不到图形的，得在前端页面获取后渲染到页面中
+在浏览器访问地址localhost:4444/getCaptcha就能看到成功返回的数据，不过是看不到图形的，得在前端页面获取后渲染到页面中。
+
+当然我们也可以优化一下图形验证码, 代码如下
+
+``````js
+// 当创建图形验证码的时候，可以传入一些参数
+const captcha = svgCaptcha.create({
+    size: 4, // 验证码个数
+    ignoreChars: '0oli1',  // 不使用某些容易混淆的字符
+    noise: 1,  // 干扰线的数量
+    color: true,  // 验证码是否带颜色
+    width: 150,  // 宽度
+    height: 50  // 高度
+})
+``````
+
+
+
+
 
 
 
