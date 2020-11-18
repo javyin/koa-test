@@ -27,6 +27,7 @@
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
     "nodemon": "^2.0.6",
+    "svg-captcha": "^1.4.0",
     "webpack-cli": "^4.2.0",
     "webpack-merge": "^5.4.0",
     "webpack-node-externals": "^2.5.2"

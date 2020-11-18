@@ -182,6 +182,51 @@ app.listen(4444);
 
 
 
+### 生成图形验证码
+
+使用npm包 svg-captcha生成图形验证码
+
+``````js
+npm install -s svg-captcha
+``````
+
+使用起来也非常简单，可以在api文件夹中先生成，然后引入到路由文档配置api路由，再合并路由引入到入口文件
+
+``````js
+//  api/publicController.js
+import svgCaptcha from 'svg-captcha'
+class PublicController {
+    constructor() {}
+    async getCaptcha(ctx) {
+        const captcha = svgCaptcha.create({})
+        ctx.body = {
+            code: 200,
+            // 这个就是请求返回的svg图形验证码
+            data: captcha.data 
+        }
+    }
+}
+
+export default new PublicController();
+``````
+
+``````js
+// routes/publicRouter.js
+import Router from 'koa-router'
+import publicController from '../api/publicController'
+
+const router = new Router()
+router.get('/getCaptcha', publicController.getCaptcha)
+
+export default router
+``````
+
+把上面路由也整合到路由集合中(src/routes/index.js)
+
+在浏览器访问地址localhost:4444/getCaptcha就能看到成功返回的数据，不过是看不到图形的，得在前端页面获取后渲染到页面中
+
+
+
 
 
 ## 其他进阶使用，后面有时间再行更新
