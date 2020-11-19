@@ -8,7 +8,7 @@ class PublicController {
             noise: Math.floor(Math.random() * 4),   //  干扰线的数量,
             color: true,
             width: 150,
-            height: 50
+            height: 40
         });
         console.log(captcha);
         ctx.body = {
