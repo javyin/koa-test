@@ -1,5 +1,5 @@
 "use strict";
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 // async..await is not allowed in global scope, must use a wrapper
 async function main() {
@@ -25,15 +25,18 @@ async function main() {
     to: "receiver email", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html: `
+    <a href="http://localhost:8080/#/forget" style="color: #333333">重置密码</a>
+`, // html body
   });
 
-  console.log("Message sent: %s", info.messageId);
+  return("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-main().catch(console.error);
+// main().catch(console.error);
+export {main}
