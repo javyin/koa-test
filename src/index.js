@@ -18,17 +18,25 @@ import koaCompose from 'koa-compose'; // 整合koa的中间件
 import compress from 'koa-compress';  // 压缩中间件
 // const router = require('./routes');
 import router from './routes';
+import JWT from 'koa-jwt';
+import config from './config/index'
+import errorHandle from "./common/errorHandle";
 
 const app = new koa();
 
 const isDevMode = process.env.NODE_ENV == "production" ?  false : true;
+
+//  unless  可以写不需要鉴权的公共请求路径
+const jwt = JWT({secret: config.JWT_SECRET}).unless({path: [/\/login/]})
 
 const middleware = koaCompose([
     koaBody(),
     statics(path.join(__dirname, '../public')),
     cors(),
     jsonutil({pretty: false, param: "pretty"}),
-    helmet()
+    helmet(),
+    errorHandle,
+    jwt
 ])
 
 if(!isDevMode) {
